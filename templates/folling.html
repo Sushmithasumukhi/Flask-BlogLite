@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Following{% endblock %}
+{% block form %}
+<div class="container">
+    <br><br>
+    <h2 align="center"> Followed by {{usr.username}} </h2><br><br>
+    <table class="table table-secondary">
+        <tr>
+          <th>Sl.no</th>
+          <th>Following</th>
+        </tr>
+        {% for f in fling_list %}
+        <tr>
+          <td>{{loop.index}}</td>
+          <td><a href="/userblogs/{{f.following.username}}">{{f.following.username}}</a></td>
+        </tr>
+        {%endfor%}
+    </table>
+    <a href="/userblogs/{{usr.username}}" class="btn btn-small btn-primary">Back</a>
+</div>
+{% endblock %}

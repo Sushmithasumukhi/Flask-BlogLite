@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Searched{% endblock %}
+{% block search%}
+<form action='/user/home' method="POST" class="d-flex" role="search">
+  <input class="form-control me-2" type="search" placeholder="Username Search" aria-label="Search" name="s">
+  <button class="btn btn-outline-secondary" type="submit">Search</button>
+</form>
+{%endblock%}
+{% block form %}
+<div class="container">
+<h1 align="center">User Search</h1><br>
+{% if user.first() %}
+<table class="table table-secondary">
+      <tr>
+        <th>Sl.no</th>
+        <th>Username</th>
+      </tr>
+      {% for username in user %}
+      <tr>
+        <td>{{loop.index}}</td>
+        <td><a href="/userblogs/{{username['username']}}">{{username['username']}}</a></td>
+      </tr>
+      {%endfor%}
+  </table>
+{%else%}
+  <h3 align="center">Username Not found :( </h3>
+{%endif%}
+
+<a href="/user/home" class="btn btn btn-primary">Back</a>
+</div>
+{% endblock %}

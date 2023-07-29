@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}blog{% endblock %}
+{% block form %}
+    <h1 align="center">Create New Post</h1>
+    <br>
+
+    <div class="container">
+    <div class="card border-warning shadow p-3 mb-5 bg-white rounded">
+    <form method="POST" enctype="multipart/form-data">
+        <label class="form-label"><b>Title</b></label>
+        <input type="text" name="title" class="form-control" placeholder="Title">
+        <br>
+        <label class="form-label"><b>Description / caption</b></label>
+        <textarea type="text" name="description" id="text" class="form-control" rows="4" placeholder="Description" required></textarea>
+        <br>
+        <label for="formFileMultiple" class="form-label"><b>Upload Picture</b></label>
+        <input class="form-control" type="file" name="photo[]" id="formFileMultiple" multiple="True" required>
+        <br>
+        <br>
+            <button type="submit" class="btn btn-secondary">Post it !</button> 
+        
+        <a href="/user/home" ><button type="button" class="btn btn-outline-primary">Back to home</button></a>
+    </form>
+    </div>
+    </div>   
+    
+    
+{% endblock %}

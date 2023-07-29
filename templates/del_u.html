@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}delete user{% endblock %}
+{% block form%}
+<div class="container">
+    <h3 align="center">Deactivate account?</h3>
+    <br>
+    <div class="container">
+        <form action="/delete/{{user.id}}" method="POST">
+          <div class="mb-3">
+            <label class="form-label">Username</label>
+            <input type="text" class="form-control" name="username" placeholder="Username" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input type="password" name="password" class="form-control" placeholder="password" required>
+          </div>
+          <button type="submit" class="btn btn-sm btn-dark">Deactivate</button>
+          <a href="/profile" class="btn btn-sm btn-warning">Back</a>
+        </form>
+        </div>
+        
+</div>
+{%endblock%}

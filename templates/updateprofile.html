@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Update profile{% endblock %}
+{% block form %}
+<div class="container">
+    <br><br>
+    <h3 align="center">Update Profile</h3>
+    <div class="card shadow-lg p-3 mb-5 bg-secondary rounded">
+        <div class="card-header shadow p-3 mb-5 bg-white rounded d-flex justify-content-between align-item-center">
+            <img class="rounded-circle profile-img" src="{{url_for('static', filename='profile/'+ user.image)}}", alt="img" ></div>
+            <br>
+            <div class="card-text">
+            <form action="/updateprofile" method="POST" enctype="multipart/form-data">
+              <div class="card-title"  align="center"><h2>Profile Info...</h2></div>
+                <div class="mb-3">  
+                <label class="form-label"><h5><strong>Name</h5></label>
+                <input type="text" class="form-control" name="name" value="{{user.name}}" placeholder="name" required>
+                </div>
+                <div class="mb-3">    
+                <label class="form-label"><h5><strong>Email</strong></h5></label>
+                <input type="text" class="form-control" value={{user.email}} name="email" placeholder="email">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label"><h5><strong>Date of Birth</strong></h5></label>
+                  <input type="text" name="dob" value={{user.dob}} class="form-control" placeholder="dob">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label"><h5><strong>Profession</strong></h5></label>
+                  <input type="text" name="prof" value={{user.profession}} class="form-control" placeholder="profession">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label"><b>ABOUT YOURSELF</b></label>
+                  <textarea type="text" name="abt_usr" class="form-control" rows="4" placeholder="About yourself" required>{{user.about_user}}</textarea>
+                </div>
+                <div>
+                <label for="formFileMultiple" class="form-label"><b>Upload Picture</b></label>
+                <input class="form-control" value="{{user.image}}"  type="file" name="image" id="formFileMultiple" multiple required>
+              </div>
+                <button class="btn btn-dark">Submit</button>
+              </form>
+              
+            </div>
+    </div>
+</div>
+{% endblock %}

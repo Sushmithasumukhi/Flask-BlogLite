@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% block title %}{{user.username}}'s Profile{% endblock %}
+{% block form %}
+<div class="container">
+    <br><br>
+    <h2 align="center" >{{user.username}}'s Profile</h2><br>
+    <div class="card border-warning shadow p-3 mb-5 bg-white rounded">
+        <div class="card-header border-primary bg-profile">
+           <img class="rounded-circle profile-img" src="{{url_for('static', filename='profile/'+ user.image)}}"> 
+           {% if user.username != usr %}
+            <div class="follow"><a href="/follow/{{user.username}}" class="btn btn-sm btn-primary button" >Follow</a>
+            <a href="/unfollow/{{user.username}}" class="btn btn-sm btn-secondary button">Unfollow</a></div>
+            {%endif%}
+
+            <div class="fcontainer">
+                <div>
+                    <p><b>Number of posts</b></p>
+                    <h5>{{posts|length}}</h5>
+                </div>
+                <div>
+                    <p><a href="/{{user.username}}/followers">Followers</a></p>
+                    <h5>{{user.followers.count()}}</h5>
+                </div>
+                <div>
+                    <p><a href="/{{user.username}}/following">Following</a></p>
+                    <h5>{{user.following.count()}}</h5>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="card-text">
+            <div class="card border-warning rounded bg-profile">
+                <div class="container">
+                <br>
+            <strong>Name:</strong> {{user.name}} <br>
+            <strong>Email:</strong> {{user.email}} <br>
+            <strong>DOB:</strong> {{user.dob}} <br>
+            <strong>PROFESSION:</strong> {{user.profession}} <br>
+            <strong>ABOUT {{user.username}}:</strong> {{user.about_user}} <br><br>
+            </div>
+            </div>
+            <br>
+            </div>
+        
+    </div>
+        <br><br>
+        {% for post in posts%}
+        <div class="card border-dark shadow p-3 mb-5 bg-body rounded">
+            <div class="card-header d-flex justify-content-between align-item-center">
+                <div class="card-header"><h5>{{user.username}}</h5></div>
+            </div>
+            <div class="card-header">
+                <div class="card-text"><h5><b>{{post.title}}</b></h5></div>
+            </div>
+            <div class="card-body">
+                <div class="card-text">{{post.description}}</div>
+                <br>{%if  post.photo1 and post.photo2 and post.photo3 and post.photo4%}
+                <img class="post-img" src="{{url_for('static', filename='photos/' + post.photo1 )}}">
+                <img class="post-img" src="{{url_for('static', filename='photos/' + post.photo2 )}}">
+                <img class="post-img" src="{{url_for('static', filename='photos/' + post.photo3 )}}">
+                <img class="post-img" src="{{url_for('static', filename='photos/' + post.photo4 )}}">          
+                {% elif post.photo1 and post.photo2 and post.photo3 %}
+                <img class="post-img" src="{{url_for('static', filename='photos/' + post.photo1 )}}">
+                <img class="post-img" src="{{url_for('static', filename='photos/' + post.photo2 )}}">
+                <img class="post-img" src="{{url_for('static', filename='photos/' + post.photo3 )}}">
+                {% elif post.photo1 and post.photo2%}
+                <img class="post-img" src="{{url_for('static', filename='photos/' + post.photo1 )}}">
+                <img class="post-img" src="{{url_for('static', filename='photos/' + post.photo2 )}}">
+                {% elif post.photo1%}
+                <img class="post-img" src="{{url_for('static', filename='photos/' + post.photo1 )}}">
+                {%endif%}
+            </div>
+            <div class="card-footer text"><a href="{{url_for('view_post', id=post.post_id)}}" class="btn btn-outline-dark btn-sm">View Blog</a><br><br>
+            <small class="text-muted">Posted on:{{post.datetime.strftime('%d-%m-%Y')}}</small>
+        </div>
+        </div>
+        {%endfor%} 
+</div> 
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

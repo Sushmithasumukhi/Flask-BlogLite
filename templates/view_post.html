@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block form%}
+<h1 align="center">BLOG</h1>
+<div class='container'>
+
+<div class="card border-dark shadow p-3 mb-5 bg-body rounded">
+    <div class="card-header d-flex justify-content-between align-item-center">
+        {% if blog.user.image %}
+            <img class="account-img"  src="{{url_for('static',filename='profile/'+ blog.user.image)}}">
+        {% else %}
+        <img class="account-img"  src="{{url_for('static',filename='profile/default.png')}}">
+        {%endif%}
+            <a href="/userblogs/{{blog.user.username}}"><h4><b>{{blog.user.username}}</h4></b></a>
+        {% if blog.author ==  usr%}
+        <div class="btn-group">
+            <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown"></button>
+            <ul class="dropdown-menu">
+                <li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#DeleteModal">Delete</a></li>
+                <li><a href="/posts/update/{{blog.post_id}}" class="dropdown-item">Edit</a></li>
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+    <div class="card-header">
+        <div class="card-text"><h5><b>{{blog.title}}</b></h5></div>
+    </div>
+    <div class="card-body">
+        <div class="card-text">{{blog.description}}
+            <br><br>{%if  blog.photo1 and blog.photo2 and blog.photo3 and blog.photo4%}
+            <img class="post-img" src="{{url_for('static', filename='photos/' + blog.photo1 )}}">
+            <img class="post-img" src="{{url_for('static', filename='photos/' + blog.photo2 )}}">
+            <img class="post-img" src="{{url_for('static', filename='photos/' + blog.photo3 )}}">
+            <img class="post-img" src="{{url_for('static', filename='photos/' + blog.photo4 )}}">          
+            {% elif blog.photo1 and blog.photo2 and blog.photo3 %}
+            <img class="post-img" src="{{url_for('static', filename='photos/' + blog.photo1 )}}">
+            <img class="post-img" src="{{url_for('static', filename='photos/' + blog.photo2 )}}">
+            <img class="post-img" src="{{url_for('static', filename='photos/' + blog.photo3 )}}">
+            {% elif blog.photo1 and blog.photo2%}
+            <img class="post-img" src="{{url_for('static', filename='photos/' + blog.photo1 )}}">
+            <img class="post-img" src="{{url_for('static', filename='photos/' + blog.photo2 )}}">
+            {% elif blog.photo1%}
+            <img class="post-img" src="{{url_for('static', filename='photos/' + blog.photo1 )}}">
+            {%endif%}
+        </div>
+    </div>
+    <div class="card-footer">
+        <small class="text-muted">Posted on: {{post.datetime.strftime('%d-%m-%Y')}}</small><br><br>
+        <div  class="btn btn-sm btn-outline-danger"><a href="/post/like/{{blog.post_id}}">Like {{blog.l|length}}</a></div>
+        <div  class="btn btn-sm btn-outline-dark"><a href="/post/unlike/{{blog.post_id}}">Unlike </a></div>
+    </div>
+</div>
+<div class="card">
+    <div class="card border-warning bg-body rounded">
+    <form class="input-group" action="/post/{{post.post_id}}/comment" method="POST">
+        <input type="text" class="form-control" name="cmt" placeholder="comment">
+        <button type="submit" class="btn btn btn-warning">Comment</button>
+    </form>
+    </div>
+</div>
+<br>
+<h4><b>{{blog.cmts|length}} Comments</b></h4>
+{% for cmt in blog.cmts %}
+<div class="card d-flex justify-content-between align-item-center">
+    
+<div class="card-header d-flex justify-content-between align-item-center">
+    <img class="account-img"  src="{{url_for('static',filename='profile/'+ cmt.user.image)}}">
+    <a href="/userblogs/{{cmt.user.username}}"><h5>{{cmt.user.username}}</h5></a></div>
+    <div class="card-body">
+                {{cmt.cmt_body}}<br>
+        {% if cmt.cmt_creater == usr %}
+        <div align="right"><a href="/delete/comment/{{cmt.cmt_id}}" class="btn btn-sm btn-outline-danger">Delete Comment</a></div>
+        {% endif %}
+    </div> 
+</div><br>
+{%endfor%}
+<br>
+<a href="/user/home" class="btn btn-sm btn-primary">Back To Home</a>
+<div class="modal fade" id="DeleteModal" tabindex="-1" aria-labelledby="DeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="DeleteModalLabel">Want to delete post ??</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <a href="/posts/delete/{{blog.post_id}}" type="submit" class="btn btn-primary">Delete</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

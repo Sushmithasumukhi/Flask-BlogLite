@@ -1,0 +1,56 @@
+.account-img{
+    height: 50px;
+    width: 50px;
+}
+
+.profile-img{
+    height: 200px;
+    width: 250px;
+    clip-path: circle();
+}
+
+.post-img{
+    height: 250px;
+    width: 250px;
+}
+
+.follow{
+    display: inline-block;
+    margin-top: 0%;
+    margin-left: 15%;
+}
+
+.fcontainer{
+    display: flex; /*puts in same line*/
+    justify-content: space-around;
+    text-decoration: none;
+}
+
+.fcontainer p{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 20px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.fcontainer h5{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+    text-transform: uppercase;
+}
+
+.bg-profile{
+    background-color: rgb(247, 225, 56);
+}
+
+h1,h2,h3,h4{
+    color: #0033ff;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+body{
+    background: linear-gradient(#909092,#cec8c8,#949191);
+    background-size: cover;
+    /*background-color: rgb(133, 229, 92);*/
+    background-blend-mode: multiply;
+}

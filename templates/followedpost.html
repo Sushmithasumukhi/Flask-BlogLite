@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block search %}
+<form actiob="/user/home" method="POST" class="d-flex" role="search">
+    <input class="form-control me-2" type="search" placeholder="Username Search" aria-label="Search" name="s">
+    <button class="btn btn-outline-secondary" type="submit">Search</button>
+  </form>
+  
+{% endblock %}
+{% block form%}
+<br>
+<h5>Hey {{user_name}}!!</h5>
+<h1 align="center">POSTS</h1>
+<div id="posts">
+<div class='container'>
+{% for post in pof%}
+<div class="card border-dark shadow p-3 mb-5 bg-body rounded">
+    <div class="card-header">
+    {% if post.user.image %}
+        <img class="account-img"  src="{{url_for('static',filename='profile/'+ post.user.image)}}">
+    {% else %}
+    <img class="account-img"  src="{{url_for('static',filename='profile/default.png')}}">
+    {%endif%}
+            <a href="/userblogs/{{post.user.username}}"><h5><b>{{post.user.username}}</h5></b></a>
+    
+        {% if post.author == user_obj %}
+        <div class="btn-group">
+            <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown" ></button>
+            <ul class="dropdown-menu">
+                <li><a href="/posts/delete/{{post.post_id}}" class="dropdown-item">Delete</a></li>
+                <li><a href="/posts/update/{{post.post_id}}" class="dropdown-item">Edit</a></li>
+            </ul>
+        </div>
+        {%endif%}
+    </div>
+    <div class="card-header">
+        <div class="card-text"><h5><b>{{post.title}}</b></h5></div>
+    </div>
+    <div class="card-body">
+        <div class="card-text">{{post.description}}<br>
+            <br>{%if  post.photo1 and post.photo2 and post.photo3 and post.photo4%}
+                <img class="post-img" src="{{url_for('static', filename='photos/' + post.photo1 )}}">
+                <img class="post-img" src="{{url_for('static', filename='photos/' + post.photo2 )}}">
+                <img class="post-img" src="{{url_for('static', filename='photos/' + post.photo3 )}}">
+                <img class="post-img" src="{{url_for('static', filename='photos/' + post.photo4 )}}">          
+                {% elif post.photo1 and post.photo2 and post.photo3 %}
+                <img class="post-img" src="{{url_for('static', filename='photos/' + post.photo1 )}}">
+                <img class="post-img" src="{{url_for('static', filename='photos/' + post.photo2 )}}">
+                <img class="post-img" src="{{url_for('static', filename='photos/' + post.photo3 )}}">
+                {% elif post.photo1 and post.photo2%}
+                <img class="post-img" src="{{url_for('static', filename='photos/' + post.photo1 )}}">
+                <img class="post-img" src="{{url_for('static', filename='photos/' + post.photo2 )}}">
+                {% elif post.photo1%}
+                <img class="post-img" src="{{url_for('static', filename='photos/' + post.photo1 )}}">
+                {%endif%}
+        </div>
+    </div>
+    <div class="card-footer"><a href="{{url_for('view_post', id=post.post_id)}}" class="btn btn-outline-dark btn-sm">View Post</a>
+        <br><br><small class="text-muted">Posted on: {{post.datetime.strftime('%d-%m-%Y')}}</small>      
+    </div>
+</div>
+{%endfor%}
+</div>
+<div align="center">
+<a href="/createblog" ><button type="button" class="btn btn-primary">Create Blog</button></a>
+</div>
+</div>   
+{% endblock %}
